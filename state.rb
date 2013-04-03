@@ -11,13 +11,15 @@ class State
 
 		@clock.target_framerate = 60
 	end
-	
-	def update
-		
-	end
 
-	def draw
-		
+	def draw(screen_text = [])
+		screen_text.each do |text|
+        	text.draw @screen
+        end
+		# Everything we're drawing, isn't actually being drawn to the screen, 
+		# it's being drawn on a different surface that's off-screen. 
+		# Rubygame::Surface#flip displays what we've been drawing to the actual screen.
+		@screen.flip
 	end
 
 	def run

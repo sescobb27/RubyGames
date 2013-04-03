@@ -94,8 +94,6 @@ class Game < State
 			@enemy.handle_event event
 			case event
 				when Rubygame::QuitEvent
-					# Rubygame.quit
-					# exit
 					Title.new.run
 				when Rubygame::KeyDownEvent
 					case event.key
@@ -128,9 +126,10 @@ class Game < State
 	end
 
 	def draw
+		screen_text = []
 		if @won
-			@win_text.draw @screen
-			@play_again_text.draw @screen
+			screen_text << @win_text
+			screen_text << @play_again_text
 		elsif @paused
 			@pause_text.draw @screen
 		else
@@ -143,10 +142,7 @@ class Game < State
 			# draw the ball
 			@ball.draw @screen
 		end
-		# Everything we're drawing, isn't actually being drawn to the screen, 
-		# it's being drawn on a different surface that's off-screen. 
-		# Rubygame::Surface#flip displays what we've been drawing to the actual screen.
-		@screen.flip
+		super screen_text
 	end
 
 	# It works by seeing if it can rule out the possibility of a collision
@@ -167,6 +163,3 @@ class Game < State
 
 	end
 end
-
-# g = Game.new
-# g.run

@@ -60,10 +60,7 @@ class Title < State
 
 	def draw
 		@screen.fill [0, 0, 0]
-        [@title_text, @play_text, @about_text, @quit_text].each do |text|
-        	text.draw @screen
-        end
-        @screen.flip
+        super [@title_text, @play_text, @about_text, @quit_text]
 	end
 end
 

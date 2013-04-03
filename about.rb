@@ -27,10 +27,7 @@ class About < State
 
 		def draw
 			@screen.fill [0, 0, 0]
-	        [@title_text, @created_by, @for_the, @for_the2].each do |text|
-	        	text.draw @screen
-	        end
-	        @screen.flip
+	        super [@title_text, @created_by, @for_the, @for_the2]
 		end
 
 	end
