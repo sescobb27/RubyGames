@@ -1,31 +1,15 @@
 #!/usr/bin/env ruby
 require_relative "game"
 require_relative "about"
-class Title
+class Title < State
 	def initialize
-		@screen = Rubygame::Screen.new [640,480],0,[Rubygame::HWSURFACE,Rubygame::DOUBLEBUF]
-		@screen.title = "Pong"
-		
-		@queue = Rubygame::EventQueue.new
-
-		@clock = Rubygame::Clock.new
-
-		@clock.target_framerate = 60
-
+		super
 		@title_text = Text.new 0, 35, "Pong", 100
 		@play_text = Text.new 0, 200, "Play Game", 30
 		@about_text = Text.new 0, 275, "About", 30
 		@quit_text = Text.new 0, 350, "Quit", 30
 		[@title_text, @play_text, @about_text, @quit_text].each do |text|
 			text.center_x @screen.width
-		end
-	end
-	
-	def run
-		loop do
-			draw
-			update
-			@clock.tick
 		end
 	end
 
@@ -63,10 +47,10 @@ class Title
 	def exec_action(action)
 		case action
 			when "Play Game"
-				g = Game.new @screen, @queue, @clock
+				g = Game.new
 				g.run
 			when "About"
-				about = About.new @screen, @queue, @clock
+				about = About.new
 				about.run
 			when "Quit"
 				Rubygame.quit

@@ -6,20 +6,14 @@ require_relative "game_object"
 require_relative "ball"
 require_relative "text"
 require_relative "title"
+require_relative "state"
 
-class Game
-	def initialize(screen, queue, clock)
-		# @screen = Rubygame::Screen.new [640,480],0,[Rubygame::HWSURFACE,Rubygame::DOUBLEBUF]
-		# @screen.title = "Pong"
-		
-		# @queue = Rubygame::EventQueue.new
-
-		# @clock = Rubygame::Clock.new
-
-		# @clock.target_framerate = 60
-		@screen = screen
-		@queue = queue
-		@clock = clock
+class Game < State
+	@@music = Rubygame::Music.load("media/background.ogg")
+	def initialize
+		super
+		# sets the number of times the music will repeat, -1 makes it repeat indefinitely.
+		@@music.play repeats: -1
 		@background = Background.new @screen.width, @screen.height
 
 		initialize_players
@@ -80,14 +74,6 @@ class Game
 		@play_again_text.y = @win_text.y + 60
 	end
 
-	def run
-		loop do
-			update
-			draw
-			@clock.tick
-		end
-	end
-
 	def update
 			@player.update
 			@enemy.update
@@ -114,7 +100,7 @@ class Game
 				when Rubygame::KeyDownEvent
 					case event.key
 						when Rubygame::K_ESCAPE
-							# @queue.push Rubygame::QuitEvent.new
+							@@music.stop
 							Title.new.run
 						when Rubygame::K_Y
 							if @won
@@ -127,8 +113,10 @@ class Game
 						when Rubygame::K_P
 							if @paused
 								@paused = false
+								@@music.unpause
 							else
 								@paused = true
+								@@music.pause
 							end
 						when Rubygame::K_N
 							if @won
@@ -147,7 +135,7 @@ class Game
 			@pause_text.draw @screen
 		else
 			# fill screen with black color in RGB
-			@screen.fill [255,0,0]
+			@screen.fill [0,0,0]
 			@background.draw @screen
 			# draw the players after the background or else you won't be able to see them!
 			@player.draw @screen

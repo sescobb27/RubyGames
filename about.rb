@@ -1,9 +1,7 @@
-class About
-	def initialize(screen, queue, clock)
-		@screen = screen
-		@queue = queue
-		@clock = clock
-
+require_relative "state"
+class About < State
+	def initialize
+		super
 		@title_text = Text.new 0, 35, "Pong", 100
 		@created_by = Text.new 0, 200, "Created By: Simon Escobar", 30
 		@for_the = Text.new 0, 250, "For the Making Games", 25
@@ -11,14 +9,6 @@ class About
 
 		[@title_text, @created_by, @for_the, @for_the2].each do |text|
 			text.center_x @screen.width
-		end
-
-		def run
-			loop do
-				draw
-				update
-				@clock.tick
-			end
 		end
 
 		def update

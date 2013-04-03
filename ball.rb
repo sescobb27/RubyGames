@@ -6,6 +6,7 @@ class Ball < GameObject
 		surface = Rubygame::Surface.load "media/ball.png"
 		@speed_x = 5
 		@speed_y = 5
+		@hit_sound = Rubygame::Sound.load "media/pop.ogg"
 		super x, y, surface
 	end
 
@@ -44,12 +45,14 @@ class Ball < GameObject
 		# and we reverse the ball's direction.
 		if paddle.x < screen.width/2
 			unless @x < paddle.x-5
+				@hit_sound.play
 				@x = paddle.x+paddle.width+1
 				@speed_x *= -1
 			end
 		else
 		# else the collision is with the enemy who is in the right side
 			unless @x > paddle.x+5
+				@hit_sound.play
 				@x = paddle.x-@width-1
 				@speed_x *= -1
 			end
