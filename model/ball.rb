@@ -3,10 +3,10 @@ class Ball < GameObject
 	attr_accessor :speed_x, :speed_y
 	def initialize(x,y)
 		# Surface.load gets an image from a file and turns it into a Rubygame::Surface object
-		surface = Rubygame::Surface.load "media/ball.png"
+		surface = Rubygame::Surface.load "../media/ball.png"
 		@speed_x = 5
 		@speed_y = 5
-		@hit_sound = Rubygame::Sound.load "media/pop.ogg"
+		@hit_sound = Rubygame::Sound.load "../media/pop.ogg"
 		super x, y, surface
 	end
 

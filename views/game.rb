@@ -9,7 +9,7 @@ require_relative "title"
 require_relative "state"
 
 class Game < State
-	@@music = Rubygame::Music.load("media/background.ogg")
+	@@music = Rubygame::Music.load("../media/background.ogg")
 	def initialize
 		super
 		# sets the number of times the music will repeat, -1 makes it repeat indefinitely.

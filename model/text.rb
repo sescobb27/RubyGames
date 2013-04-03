@@ -6,7 +6,7 @@ class Text < GameObject
 	attr_reader :score
 	def initialize(x = 0, y = 0, score = "0", size = 28)
 		# To use a font, first we have to load it up by creating a new instance of the Rubygame::TTF class.
-		@font = Rubygame::TTF.new "media/font.ttf", size
+		@font = Rubygame::TTF.new "../media/font.ttf", size
 		@score = score
 		
 		super x,y, re_render_text
