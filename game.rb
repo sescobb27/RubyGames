@@ -1,22 +1,25 @@
-#!/usr/bin/env ruby
+# #!/usr/bin/env ruby
 require "rubygems"
 require "rubygame"
 require_relative "jugador"
 require_relative "game_object"
 require_relative "ball"
 require_relative "text"
+require_relative "title"
 
 class Game
-	def initialize
-		@screen = Rubygame::Screen.new [640,480],0,[Rubygame::HWSURFACE,Rubygame::DOUBLEBUF]
-		@screen.title = "Pong"
+	def initialize(screen, queue, clock)
+		# @screen = Rubygame::Screen.new [640,480],0,[Rubygame::HWSURFACE,Rubygame::DOUBLEBUF]
+		# @screen.title = "Pong"
 		
-		@queue = Rubygame::EventQueue.new
+		# @queue = Rubygame::EventQueue.new
 
-		@clock = Rubygame::Clock.new
+		# @clock = Rubygame::Clock.new
 
-		@clock.target_framerate = 60
-
+		# @clock.target_framerate = 60
+		@screen = screen
+		@queue = queue
+		@clock = clock
 		@background = Background.new @screen.width, @screen.height
 
 		initialize_players
@@ -105,12 +108,14 @@ class Game
 			@enemy.handle_event event
 			case event
 				when Rubygame::QuitEvent
-					Rubygame.quit
-					exit
+					# Rubygame.quit
+					# exit
+					Title.new.run
 				when Rubygame::KeyDownEvent
 					case event.key
 						when Rubygame::K_ESCAPE
-							@queue.push Rubygame::QuitEvent.new
+							# @queue.push Rubygame::QuitEvent.new
+							Title.new.run
 						when Rubygame::K_Y
 							if @won
 								@player.center_y @screen.height
@@ -175,5 +180,5 @@ class Game
 	end
 end
 
-g = Game.new
-g.run
+# g = Game.new
+# g.run
